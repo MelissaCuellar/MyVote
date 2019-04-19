@@ -12,29 +12,28 @@ namespace MyVote.Web.Controllers
 {
     public class VotingEventsController : Controller
     {
-        private readonly DataContext _context;
+        private readonly IRepository repository;
 
-        public VotingEventsController(DataContext context)
+        public VotingEventsController(IRepository repository)
         {
-            _context = context;
+            this.repository = repository;
         }
 
-        // GET: VotingEvents
-        public async Task<IActionResult> Index()
+        
+        public IActionResult Index()
         {
-            return View(await _context.VotingEvents.ToListAsync());
+            return View(this.repository.GetVotingEvents());
         }
 
-        // GET: VotingEvents/Details/5
-        public async Task<IActionResult> Details(int? id)
+       
+        public IActionResult Details(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var votingEvent = await _context.VotingEvents
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var votingEvent = this.repository.GetVotingEvent(id.Value);
             if (votingEvent == null)
             {
                 return NotFound();
@@ -43,37 +42,35 @@ namespace MyVote.Web.Controllers
             return View(votingEvent);
         }
 
-        // GET: VotingEvents/Create
+        
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: VotingEvents/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+       
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description,StartDate,EndDate")] VotingEvent votingEvent)
+        public async Task<IActionResult> Create(VotingEvent votingEvent)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(votingEvent);
-                await _context.SaveChangesAsync();
+                this.repository.AddVotingEvent(votingEvent);
+                await this.repository.SaveAllAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(votingEvent);
         }
 
         // GET: VotingEvents/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public IActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var votingEvent = await _context.VotingEvents.FindAsync(id);
+            var votingEvent = this.repository.GetVotingEvent(id.Value);
             if (votingEvent == null)
             {
                 return NotFound();
@@ -86,23 +83,19 @@ namespace MyVote.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,StartDate,EndDate")] VotingEvent votingEvent)
+        public async Task<IActionResult> Edit(VotingEvent votingEvent)
         {
-            if (id != votingEvent.Id)
-            {
-                return NotFound();
-            }
-
+            
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(votingEvent);
-                    await _context.SaveChangesAsync();
+                    this.repository.UpdateVotingEvent(votingEvent);
+                    await this.repository.SaveAllAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!VotingEventExists(votingEvent.Id))
+                    if (!this.repository.VotingEventExists(votingEvent.Id))
                     {
                         return NotFound();
                     }
@@ -117,15 +110,14 @@ namespace MyVote.Web.Controllers
         }
 
         // GET: VotingEvents/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public IActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var votingEvent = await _context.VotingEvents
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var votingEvent = this.repository.GetVotingEvent(id.Value);
             if (votingEvent == null)
             {
                 return NotFound();
@@ -134,20 +126,17 @@ namespace MyVote.Web.Controllers
             return View(votingEvent);
         }
 
-        // POST: VotingEvents/Delete/5
+        
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var votingEvent = await _context.VotingEvents.FindAsync(id);
-            _context.VotingEvents.Remove(votingEvent);
-            await _context.SaveChangesAsync();
+            var votingEvent = this.repository.GetVotingEvent(id);
+            this.repository.RemoveVotingEvent(votingEvent);
+            await this.repository.SaveAllAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool VotingEventExists(int id)
-        {
-            return _context.VotingEvents.Any(e => e.Id == id);
-        }
+       
     }
 }
