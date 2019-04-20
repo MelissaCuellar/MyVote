@@ -13,6 +13,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MyVote.Web.Data;
 using MyVote.Web.Data.Entities;
+using MyVote.Web.Data.Repositories;
+using MyVote.Web.Helpers;
 
 namespace MyVote.Web
 {
@@ -48,7 +50,9 @@ namespace MyVote.Web
 
             services.AddTransient<SeedDb>();
 
-            services.AddScoped<IRepository, Repository>();
+            services.AddScoped<IVotingEventRepository, VotingEventRepository>();
+            services.AddScoped<ICountryRepository, CountryRepository>();
+            services.AddScoped<IUserHelper, UserHelper>();
 
             services.Configure<CookiePolicyOptions>(options =>
             {

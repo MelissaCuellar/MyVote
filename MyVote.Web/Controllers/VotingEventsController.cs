@@ -1,101 +1,105 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using MyVote.Web.Data;
-using MyVote.Web.Data.Entities;
-
+﻿
 namespace MyVote.Web.Controllers
 {
+    using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore;
+    using MyVote.Web.Data;
+    using MyVote.Web.Data.Entities;
+    using MyVote.Web.Data.Repositories;
+    using MyVote.Web.Helpers;
+    
+
     public class VotingEventsController : Controller
     {
-        private readonly IRepository repository;
+        private readonly IVotingEventRepository votingEventRepository;
+        private readonly IUserHelper userHelper;
 
-        public VotingEventsController(IRepository repository)
+        public VotingEventsController(IVotingEventRepository votingEventRepository, IUserHelper userHelper)
         {
-            this.repository = repository;
+            this.votingEventRepository = votingEventRepository;
+            this.userHelper = userHelper;
         }
 
-        
+
+        // GET: Products
         public IActionResult Index()
         {
-            return View(this.repository.GetVotingEvents());
+            return View(this.votingEventRepository.GetAll());
         }
 
-       
-        public IActionResult Details(int? id)
+        // GET: Products/Details/5
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var votingEvent = this.repository.GetVotingEvent(id.Value);
-            if (votingEvent == null)
+            var product = await this.votingEventRepository.GetByIdAsync(id.Value);
+            if (product == null)
             {
                 return NotFound();
             }
 
-            return View(votingEvent);
+            return View(product);
         }
 
-        
+        // GET: Products/Create
         public IActionResult Create()
         {
             return View();
         }
 
-       
+        // POST: Products/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(VotingEvent votingEvent)
         {
             if (ModelState.IsValid)
             {
-                this.repository.AddVotingEvent(votingEvent);
-                await this.repository.SaveAllAsync();
+                // TODO: Pending to change to: this.User.Identity.Name
+                votingEvent.User = await this.userHelper.GetUserByEmailAsync("meli.cuellar0117@gmail.com");
+                await this.votingEventRepository.CreateAsync(votingEvent);
                 return RedirectToAction(nameof(Index));
             }
+
             return View(votingEvent);
         }
 
-        // GET: VotingEvents/Edit/5
-        public IActionResult Edit(int? id)
+        // GET: Products/Edit/5
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var votingEvent = this.repository.GetVotingEvent(id.Value);
-            if (votingEvent == null)
+            var product = await this.votingEventRepository.GetByIdAsync(id.Value);
+            if (product == null)
             {
                 return NotFound();
             }
-            return View(votingEvent);
+
+            return View(product);
         }
 
-        // POST: VotingEvents/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Products/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(VotingEvent votingEvent)
         {
-            
             if (ModelState.IsValid)
             {
                 try
                 {
-                    this.repository.UpdateVotingEvent(votingEvent);
-                    await this.repository.SaveAllAsync();
+                    // TODO: Pending to change to: this.User.Identity.Name
+                    votingEvent.User = await this.userHelper.GetUserByEmailAsync("meli.cuellar0117@gmail.com");
+                    await this.votingEventRepository.UpdateAsync(votingEvent);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!this.repository.VotingEventExists(votingEvent.Id))
+                    if (!await this.votingEventRepository.ExistAsync(votingEvent.Id))
                     {
                         return NotFound();
                     }
@@ -106,37 +110,38 @@ namespace MyVote.Web.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+
             return View(votingEvent);
         }
 
-        // GET: VotingEvents/Delete/5
-        public IActionResult Delete(int? id)
+        // GET: Products/Delete/5
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var votingEvent = this.repository.GetVotingEvent(id.Value);
-            if (votingEvent == null)
+            var product = await this.votingEventRepository.GetByIdAsync(id.Value);
+            if (product == null)
             {
                 return NotFound();
             }
 
-            return View(votingEvent);
+            return View(product);
         }
 
-        
+        // POST: Products/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var votingEvent = this.repository.GetVotingEvent(id);
-            this.repository.RemoveVotingEvent(votingEvent);
-            await this.repository.SaveAllAsync();
+            var product = await this.votingEventRepository.GetByIdAsync(id);
+            await this.votingEventRepository.DeleteAsync(product);
             return RedirectToAction(nameof(Index));
         }
 
-       
+
+
     }
 }

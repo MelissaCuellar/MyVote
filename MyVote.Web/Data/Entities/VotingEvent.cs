@@ -4,7 +4,7 @@ namespace MyVote.Web.Data.Entities
     using System;
     using System.ComponentModel.DataAnnotations;
 
-    public class VotingEvent
+    public class VotingEvent: IEntity
     {
         public int Id { get; set; }
 
