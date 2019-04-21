@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MyVote.UIForms.Views.VotingEventsPage" 
+             BindingContext="{Binding Main, Source={StaticResource Locator}}"
+             Title="Voting Events">
+    <ContentPage.Content>
+        <StackLayout
+            BindingContext="{Binding VotingEvents}"
+            Padding="8">
+            <ListView
+                IsRefreshing="{Binding IsRefreshing}"
+                HasUnevenRows="True"
+                ItemsSource="{Binding VotingEvents}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                
+                                <StackLayout
+                                	Grid.Column="0"
+                                	VerticalOptions="Center">
+                                    <Label
+                                    	FontAttributes="Bold"
+                                    	FontSize="Medium"
+                                    	Text="{Binding Name}"
+                                    	TextColor="Black">
+                                    </Label>
+                                    <Label
+                                    	Text="{Binding Description}"
+                                    	TextColor="Black">
+                                    </Label>
+                                    
+                                </StackLayout>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
