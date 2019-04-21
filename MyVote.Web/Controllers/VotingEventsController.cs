@@ -2,6 +2,8 @@
 namespace MyVote.Web.Controllers
 {
     using System;
+    using System.IO;
+    using System.Linq;
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
@@ -51,23 +53,81 @@ namespace MyVote.Web.Controllers
             {
                 return NotFound();
             }
-
-            return View(candidate);
+            var view = this.ToCandidateViewModel(candidate);
+            return View(view);
+        }
+        
+        private CandidateViewModel ToCandidateViewModel(Candidate candidate)
+        {
+            return new CandidateViewModel
+            {               
+                CandidateId = candidate.Id,
+                Name=candidate.Name,
+                Proposal=candidate.Proposal,
+                ImageUrl=candidate.ImageUrl
+            };
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditCandidate(Candidate candidate)
+        public async Task<IActionResult> EditCandidate(CandidateViewModel model)
         {
             if (this.ModelState.IsValid)
             {
-                var votingEventId = await this.votingEventRepository.UpdateCandidateAsync(candidate);
-                if (votingEventId != 0)
-                {
-                    return this.RedirectToAction($"Details/{votingEventId}");
+                try
+                {                   
+                        var path = model.ImageUrl;
+
+                        if (model.ImageFile != null && model.ImageFile.Length > 0)
+                        {
+                            var guid = Guid.NewGuid().ToString();
+                            var file = $"{guid}.jpg";
+
+                            path = Path.Combine(
+                                Directory.GetCurrentDirectory(),
+                                "wwwroot\\images\\Candidates",
+                                file);
+
+                            using (var stream = new FileStream(path, FileMode.Create))
+                            {
+                                await model.ImageFile.CopyToAsync(stream);
+                            }
+
+                            path = $"~/images/Candidates/{file}";
+                        }
+                    var candidate = this.ToCandidate(model, path);
+                    var EventId = await this.votingEventRepository.UpdateCandidateAsync(candidate);
+                    if (EventId != 0)
+                    {
+                        return this.RedirectToAction($"Details/{EventId}");
+                    }
                 }
+                catch
+                {
+                    if (!await this.votingEventRepository.ExistAsync(model.VotingEventId))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+               
             }
 
-            return this.View(candidate);
+            return this.View(model);
+        }
+
+        private Candidate ToCandidate(CandidateViewModel model, string path)
+        {
+            return new Candidate
+            {
+                Id=model.CandidateId,
+                ImageUrl=path,
+                Name=model.Name,
+                Proposal=model.Proposal
+                
+            };
         }
 
         public async Task<IActionResult> AddCandidate(int? id)
@@ -92,7 +152,27 @@ namespace MyVote.Web.Controllers
         {
             if (this.ModelState.IsValid)
             {
-                await this.votingEventRepository.AddCandidateAsync(model);
+                var path = string.Empty;
+
+                if (model.ImageFile != null && model.ImageFile.Length > 0)
+                {
+                    var guid = Guid.NewGuid().ToString();
+                    var file = $"{guid}.jpg";
+
+                    path = Path.Combine(
+                        Directory.GetCurrentDirectory(),
+                        "wwwroot\\images\\Candidates",
+                        file);
+
+                    using (var stream = new FileStream(path, FileMode.Create))
+                    {
+                        await model.ImageFile.CopyToAsync(stream);
+                    }
+
+                    path = $"~/images/Candidates/{file}";
+                }
+
+                await this.votingEventRepository.AddCandidateAsync(model, path);
                 return this.RedirectToAction($"Details/{model.VotingEventId}");
             }
 
@@ -102,7 +182,7 @@ namespace MyVote.Web.Controllers
         // GET: Products
         public IActionResult Index()
         {
-            return View(this.votingEventRepository.GetAll());
+            return View(this.votingEventRepository.GetAll().OrderBy(v=>v.Name));
         }
 
         // GET: Products/Details/5
@@ -157,13 +237,13 @@ namespace MyVote.Web.Controllers
                 return NotFound();
             }
 
-            var product = await this.votingEventRepository.GetByIdAsync(id.Value);
-            if (product == null)
+            var votingEvent = await this.votingEventRepository.GetByIdAsync(id.Value);
+            if (votingEvent == null)
             {
                 return NotFound();
             }
 
-            return View(product);
+            return View(votingEvent);
         }
 
         // POST: Products/Edit/5

@@ -16,7 +16,7 @@ namespace MyVote.Web.Data.Repositories
             this.context = context;
         }
 
-        public async Task AddCandidateAsync(CandidateViewModel model)
+        public async Task AddCandidateAsync(CandidateViewModel model, string path)
         {
             var votingEvent = await this.GetVotingEventWithCandidatesAsync(model.VotingEventId);
             if(votingEvent==null)
@@ -28,7 +28,7 @@ namespace MyVote.Web.Data.Repositories
             {
                 Name = model.Name,
                 Proposal = model.Proposal,
-                ImageUrl = model.ImageUrl
+                ImageUrl = path
             });
             this.context.VotingEvents.Update(votingEvent);
             await this.context.SaveChangesAsync();
@@ -47,6 +47,11 @@ namespace MyVote.Web.Data.Repositories
             this.context.Candidates.Remove(candidate);
             await this.context.SaveChangesAsync();
             return votingEvent.Id;
+        }
+
+        public IQueryable GetAllWithCandidates()
+        {
+            return this.context.VotingEvents.Include(v=>v.Candidates);
         }
 
         public async Task<Candidate> GetCandidateAsync(int idVote)

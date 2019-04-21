@@ -17,7 +17,7 @@ namespace MyVote.Web.Controllers.API
         [HttpGet]
         public IActionResult GetVotingEvents()
         {
-            return Ok(this.votingEventRepository.GetAll());
+            return Ok(this.votingEventRepository.GetAllWithCandidates());
         }
     }
 }

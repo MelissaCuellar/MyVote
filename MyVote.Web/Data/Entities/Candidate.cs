@@ -20,6 +20,17 @@ namespace MyVote.Web.Data.Entities
 
         [Display(Name = "Image")]
         public string ImageUrl { get; set; }
-        
+
+        public string ImageFullPath {
+            get
+            {
+                if(string.IsNullOrEmpty(ImageUrl))
+                {
+                    return null;
+                }
+                return $"https://myvotesystem.azurewebsites.net{this.ImageUrl.Substring(1)}";
+            }
+        }
+
     }
 }

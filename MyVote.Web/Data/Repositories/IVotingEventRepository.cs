@@ -14,11 +14,12 @@ namespace MyVote.Web.Data.Repositories
 
         Task<VotingEvent> GetVotingEventWithCandidatesAsync(int id);
 
-        Task AddCandidateAsync(CandidateViewModel model);
+        Task AddCandidateAsync(CandidateViewModel model, string path);
 
         Task<int> UpdateCandidateAsync(Candidate candidate);
 
         Task<int> DeleteCandidateAsync(Candidate candidate);
 
+        IQueryable GetAllWithCandidates();
     }
 }

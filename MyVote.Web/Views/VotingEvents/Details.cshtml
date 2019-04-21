@@ -57,7 +57,10 @@ else
                     @Html.DisplayFor(modelItem => item.Proposal)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ImageUrl)
+                    @if (!string.IsNullOrEmpty(item.ImageUrl))
+                    {
+                        <img src="@Url.Content(item.ImageUrl)" alt="Image" style="width:75px;height:75px;max-width: 100%; height: auto;" />
+                    }
                 </td>
                 <td id="@item.Id">
                     <a asp-action="EditCandidate" asp-route-id="@item.Id" class="btn btn-warning">Edit</a>
