@@ -1,6 +1,7 @@
 ﻿
 namespace MyVote.Web.Controllers
 {
+    using System;
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
@@ -8,7 +9,7 @@ namespace MyVote.Web.Controllers
     using MyVote.Web.Data.Entities;
     using MyVote.Web.Data.Repositories;
     using MyVote.Web.Helpers;
-    
+    using MyVote.Web.Models;
 
     public class VotingEventsController : Controller
     {
@@ -21,6 +22,82 @@ namespace MyVote.Web.Controllers
             this.userHelper = userHelper;
         }
 
+        public async Task<IActionResult> DeleteCandidate(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var candidate = await this.votingEventRepository.GetCandidateAsync(id.Value);
+            if (candidate == null)
+            {
+                return NotFound();
+            }
+
+            var votingEventId = await this.votingEventRepository.DeleteCandidateAsync(candidate);
+            return this.RedirectToAction($"Details/{votingEventId}");
+        }
+
+        public async Task<IActionResult> EditCandidate(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var candidate = await this.votingEventRepository.GetCandidateAsync(id.Value);
+            if (candidate == null)
+            {
+                return NotFound();
+            }
+
+            return View(candidate);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditCandidate(Candidate candidate)
+        {
+            if (this.ModelState.IsValid)
+            {
+                var votingEventId = await this.votingEventRepository.UpdateCandidateAsync(candidate);
+                if (votingEventId != 0)
+                {
+                    return this.RedirectToAction($"Details/{votingEventId}");
+                }
+            }
+
+            return this.View(candidate);
+        }
+
+        public async Task<IActionResult> AddCandidate(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var votingEvent = await this.votingEventRepository.GetByIdAsync(id.Value);
+            if (votingEvent == null)
+            {
+                return NotFound();
+            }
+
+            var model = new CandidateViewModel { VotingEventId = votingEvent.Id };
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddCandidate(CandidateViewModel model)
+        {
+            if (this.ModelState.IsValid)
+            {
+                await this.votingEventRepository.AddCandidateAsync(model);
+                return this.RedirectToAction($"Details/{model.VotingEventId}");
+            }
+
+            return this.View(model);
+        }
 
         // GET: Products
         public IActionResult Index()
@@ -36,19 +113,24 @@ namespace MyVote.Web.Controllers
                 return NotFound();
             }
 
-            var product = await this.votingEventRepository.GetByIdAsync(id.Value);
-            if (product == null)
+            var votingEvent = await this.votingEventRepository.GetVotingEventWithCandidatesAsync(id.Value);
+            if (votingEvent == null)
             {
                 return NotFound();
             }
 
-            return View(product);
+            return View(votingEvent);
         }
 
         // GET: Products/Create
         public IActionResult Create()
         {
-            return View();
+            var model = new VotingEvent
+            {
+                StartDate = DateTime.Today,
+                EndDate=DateTime.Today
+            };
+            return View(model);
         }
 
         // POST: Products/Create
