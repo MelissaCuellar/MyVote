@@ -35,10 +35,14 @@ namespace MyVote.UIForms.ViewModels
         {
             this.IsRefreshing = true;
 
+            var url = Application.Current.Resources["UrlAPI"].ToString();
             var response = await this.apiService.GetListAsync<VotingEvent>(
-                "https://myvotesystem.azurewebsites.net",
+                url,
                 "/api",
-                "/VotingEvents");
+                "/VotingEvents",
+                "bearer",
+                MainViewModel.GetInstance().Token.Token);
+
 
             this.IsRefreshing = false;
 

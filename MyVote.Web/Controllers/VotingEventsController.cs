@@ -5,6 +5,7 @@ namespace MyVote.Web.Controllers
     using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
     using MyVote.Web.Data;
@@ -13,6 +14,7 @@ namespace MyVote.Web.Controllers
     using MyVote.Web.Helpers;
     using MyVote.Web.Models;
 
+    [Authorize]
     public class VotingEventsController : Controller
     {
         private readonly IVotingEventRepository votingEventRepository;

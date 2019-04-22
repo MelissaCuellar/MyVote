@@ -1,11 +1,14 @@
 ﻿
 namespace MyVote.Web.Controllers.API
 {
+    using Microsoft.AspNetCore.Authentication.JwtBearer;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using MyVote.Web.Data.Repositories;
 
     [Route("api/[Controller]")]
-    public class VotingEventsController:Controller
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    public class VotingEventsController : Controller
     {
         private readonly IVotingEventRepository votingEventRepository;
 
