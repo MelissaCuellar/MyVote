@@ -27,6 +27,12 @@ namespace MyVote.Common.Models
         [JsonProperty("user")]
         public object User { get; set; }
 
+        [JsonProperty("imageUrl")]
+        public string ImageUrl { get; set; }
+
+        [JsonProperty("imageFullPath")]
+        public Uri ImageFullPath { get; set; }
+
         public override string ToString()
         {
             return $"{this.Name} {this.Description}";

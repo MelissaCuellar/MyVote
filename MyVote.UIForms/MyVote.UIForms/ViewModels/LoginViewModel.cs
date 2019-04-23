@@ -89,8 +89,7 @@ namespace MyVote.UIForms.ViewModels
             var mainViewModel = MainViewModel.GetInstance();
             mainViewModel.Token = token;
             mainViewModel.VotingEvents = new VotingEventsViewModel();
-            await Application.Current.MainPage.Navigation.PushAsync(new VotingEventsPage());
-
+            Application.Current.MainPage = new MasterPage();
         }
     }
 }

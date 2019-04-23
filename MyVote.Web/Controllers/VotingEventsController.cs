@@ -207,7 +207,7 @@ namespace MyVote.Web.Controllers
         // GET: Products/Create
         public IActionResult Create()
         {
-            var model = new VotingEvent
+            var model = new VotingEventViewModel
             {
                 StartDate = DateTime.Today,
                 EndDate=DateTime.Today
@@ -218,17 +218,58 @@ namespace MyVote.Web.Controllers
         // POST: Products/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(VotingEvent votingEvent)
+        public async Task<IActionResult> Create(VotingEventViewModel model)
         {
             if (ModelState.IsValid)
             {
-                // TODO: Pending to change to: this.User.Identity.Name
+                var path = string.Empty;
+
+                if (model.ImageFile != null && model.ImageFile.Length > 0)
+                {
+                    var guid = Guid.NewGuid().ToString();
+                    var file = $"{guid}.jpg";
+
+                    path = Path.Combine(
+                        Directory.GetCurrentDirectory(),
+                        "wwwroot\\images\\VotingEvents",
+                        file);
+
+                    using (var stream = new FileStream(path, FileMode.Create))
+                    {
+                        await model.ImageFile.CopyToAsync(stream);
+                    }
+
+                    path = $"~/images/VotingEvents/{file}";
+                }
+
+                var votingEvent = this.ToVotingEvent(model, path);
                 votingEvent.User = await this.userHelper.GetUserByEmailAsync("meli.cuellar0117@gmail.com");
                 await this.votingEventRepository.CreateAsync(votingEvent);
                 return RedirectToAction(nameof(Index));
+
+
+
+                // TODO: Pending to change to: this.User.Identity.Name
+                //votingEvent.User = await this.userHelper.GetUserByEmailAsync("meli.cuellar0117@gmail.com");
+                //await this.votingEventRepository.CreateAsync(votingEvent);
+                //return RedirectToAction(nameof(Index));
             }
 
-            return View(votingEvent);
+            return View(model);
+        }
+
+        private VotingEvent ToVotingEvent(VotingEventViewModel view, string path)
+        {
+            return new VotingEvent
+            {
+                Id = view.Id,
+                Name = view.Name,
+                Description = view.Description,
+                StartDate = view.StartDate,
+                EndDate=view.EndDate,
+                ImageUrl=path,
+                User=view.User
+            };
         }
 
         // GET: Products/Edit/5
@@ -244,26 +285,61 @@ namespace MyVote.Web.Controllers
             {
                 return NotFound();
             }
+            var view = this.ToVotinEventViewModel(votingEvent);
+            return View(view);
+        }
 
-            return View(votingEvent);
+        private VotingEventViewModel ToVotinEventViewModel(VotingEvent votingEvent)
+        {
+            return new VotingEventViewModel
+            {
+                Id=votingEvent.Id,
+                Name=votingEvent.Name,
+                Description=votingEvent.Description,
+                StartDate=votingEvent.StartDate,
+                EndDate=votingEvent.EndDate,
+                ImageUrl=votingEvent.ImageUrl
+            };
         }
 
         // POST: Products/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(VotingEvent votingEvent)
+        public async Task<IActionResult> Edit(VotingEventViewModel model)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
+                    var path = model.ImageUrl;
+
+                    if (model.ImageFile != null && model.ImageFile.Length > 0)
+                    {
+                        var guid = Guid.NewGuid().ToString();
+                        var file = $"{guid}.jpg";
+
+                        path = Path.Combine(
+                            Directory.GetCurrentDirectory(),
+                            "wwwroot\\images\\VotingEvents",
+                            file);
+
+                        using (var stream = new FileStream(path, FileMode.Create))
+                        {
+                            await model.ImageFile.CopyToAsync(stream);
+                        }
+
+                        path = $"~/images/VotingEvents/{file}";
+                    }
+
+                    var votingEvent = this.ToVotingEvent(model, path);
+                    
                     // TODO: Pending to change to: this.User.Identity.Name
                     votingEvent.User = await this.userHelper.GetUserByEmailAsync("meli.cuellar0117@gmail.com");
                     await this.votingEventRepository.UpdateAsync(votingEvent);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!await this.votingEventRepository.ExistAsync(votingEvent.Id))
+                    if (!await this.votingEventRepository.ExistAsync(model.Id))
                     {
                         return NotFound();
                     }
@@ -275,7 +351,7 @@ namespace MyVote.Web.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            return View(votingEvent);
+            return View(model);
         }
 
         // GET: Products/Delete/5

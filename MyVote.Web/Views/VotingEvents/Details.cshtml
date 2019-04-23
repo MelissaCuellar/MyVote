@@ -6,19 +6,29 @@
 
 <h2>Details</h2>
 
-<div>
+<div class="row">
     <h4>Voting Event</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-    </dl>
-</div>
 
+    <div class="col-md-4">
+        <dl>
+            <dt>
+
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+            <dd>
+
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+        </dl>
+    </div>
+    <div class="col-md4">
+        @if (!string.IsNullOrEmpty(Model.ImageUrl))
+        {
+            <img src="@Url.Content(Model.ImageUrl)" alt="Image" style="width:200px;height:350px;max-width: 100%; height: auto;" />
+        }
+    </div>
+</div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
     <a asp-action="AddCandidate" asp-route-id="@Model.Id" class="btn btn-info">Add Candidate</a>
