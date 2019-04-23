@@ -18,6 +18,12 @@ namespace MyVote.UIForms.ViewModels
 
         public LoginViewModel Login { get; set; }
 
+        public string UserEmail { get; set; }
+
+        public string UserPassword { get; set; }
+
+
+
         public VotingEventsViewModel VotingEvents { get; set; }
        
 

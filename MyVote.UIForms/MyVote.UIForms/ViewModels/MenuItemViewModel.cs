@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight.Command;
+using MyVote.Common.Helpers;
 using MyVote.Common.Models;
 using MyVote.UIForms.Views;
 using System.Windows.Input;
@@ -24,6 +25,12 @@ namespace MyVote.UIForms.ViewModels
                     await App.Navigator.PushAsync(new SetupPage());
                     break;
                 default:
+
+                    Settings.IsRemember = false;
+                    Settings.Token = string.Empty;
+                    Settings.UserEmail = string.Empty;
+                    Settings.UserPassword = string.Empty;
+
                     MainViewModel.GetInstance().Login = new LoginViewModel();
                     Application.Current.MainPage = new NavigationPage(new LoginPage());
                     break;

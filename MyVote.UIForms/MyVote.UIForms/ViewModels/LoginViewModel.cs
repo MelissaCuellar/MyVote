@@ -3,9 +3,11 @@
 namespace MyVote.UIForms.ViewModels
 {
     using GalaSoft.MvvmLight.Command;
+    using MyVote.Common.Helpers;
     using MyVote.Common.Models;
     using MyVote.Common.Services;
     using MyVote.UIForms.Views;
+    using Newtonsoft.Json;
     using System;
     using System.Windows.Input;
     using Xamarin.Forms;
@@ -14,6 +16,8 @@ namespace MyVote.UIForms.ViewModels
         private ApiService apiService;
         private bool isRunning;
         private bool isEnabled;
+
+        public bool IsRemember { get; set; }
 
         public bool IsRunning
         {
@@ -36,9 +40,8 @@ namespace MyVote.UIForms.ViewModels
         public LoginViewModel()
         {
             this.apiService = new ApiService();
-            this.Email = "meli.cuellar0117@gmail.com";
-            this.Password = "888888";
             this.isEnabled = true;
+            this.IsRemember = true;
         }
 
         private async void Login()
@@ -89,6 +92,15 @@ namespace MyVote.UIForms.ViewModels
             var mainViewModel = MainViewModel.GetInstance();
             mainViewModel.Token = token;
             mainViewModel.VotingEvents = new VotingEventsViewModel();
+            mainViewModel.UserEmail = this.Email;
+            mainViewModel.UserPassword = this.Password;
+
+            Settings.IsRemember = this.IsRemember;
+            Settings.UserEmail = this.Email;
+            Settings.UserPassword = this.Password;
+            Settings.Token = JsonConvert.SerializeObject(token);
+
+
             Application.Current.MainPage = new MasterPage();
         }
     }
