@@ -39,7 +39,14 @@
                                     	Text="{Binding Description}"
                                     	TextColor="Black">
                                     </Label>
-                                    
+                                    <Label
+                                    	Text="{Binding StartDate, StringFormat='Start Date: {MM:dd:yyyy}'}"
+                                    	TextColor="Navy">
+                                    </Label>
+                                    <Label
+                                    	Text="{Binding EndtDate, StringFormat='End Date: {MM:dd:yyyy}'}"
+                                    	TextColor="Navy">
+                                    </Label>
                                 </StackLayout>
                             </Grid>
                         </ViewCell>

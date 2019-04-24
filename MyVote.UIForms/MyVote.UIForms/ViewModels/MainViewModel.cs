@@ -22,7 +22,7 @@ namespace MyVote.UIForms.ViewModels
 
         public string UserPassword { get; set; }
 
-
+        public RegisterViewModel Register { get; set; }
 
         public VotingEventsViewModel VotingEvents { get; set; }
        

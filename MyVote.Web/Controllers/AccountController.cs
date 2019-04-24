@@ -21,15 +21,18 @@ namespace MyVote.Web.Controllers
     public class AccountController : Controller
     {
         private readonly IUserHelper userHelper;
+        private readonly IMailHelper mailHelper;
         private readonly ICountryRepository countryRepository;
         private readonly IConfiguration configuration;
 
         public AccountController(
             IUserHelper userHelper,
+            IMailHelper mailHelper,
             ICountryRepository countryRepository,
             IConfiguration configuration)
         {
             this.userHelper = userHelper;
+            this.mailHelper = mailHelper;
             this.countryRepository = countryRepository;
             this.configuration = configuration;
         }
@@ -83,6 +86,56 @@ namespace MyVote.Web.Controllers
             return this.View(model);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Register(RegisterNewUserViewModel model)
+        {
+            if (this.ModelState.IsValid)
+            {
+                var user = await this.userHelper.GetUserByEmailAsync(model.Username);
+                if (user == null)
+                {
+                    var city = await this.countryRepository.GetCityAsync(model.CityId);
+
+                    user = new User
+                    {
+                        FirstName = model.FirstName,
+                        LastName = model.LastName,
+                        Email = model.Username,
+                        UserName = model.Username,
+                        Ocupation = model.Occupation,
+                        PhoneNumber = model.PhoneNumber,
+                        CityId = model.CityId,
+                        City = city
+                    };
+
+                    var result = await this.userHelper.AddUserAsync(user, model.Password);
+                    if (result != IdentityResult.Success)
+                    {
+                        this.ModelState.AddModelError(string.Empty, "The user couldn't be created.");
+                        return this.View(model);
+                    }
+
+                    var myToken = await this.userHelper.GenerateEmailConfirmationTokenAsync(user);
+                    var tokenLink = this.Url.Action("ConfirmEmail", "Account", new
+                    {
+                        userid = user.Id,
+                        token = myToken
+                    }, protocol: HttpContext.Request.Scheme);
+
+                    this.mailHelper.SendMail(model.Username, "Shop Email confirmation", $"<h1>Shop Email Confirmation</h1>" +
+                        $"To allow the user, " +
+                        $"plase click in this link:</br></br><a href = \"{tokenLink}\">Confirm Email</a>");
+                    this.ViewBag.Message = "The instructions to allow your user has been sent to email.";
+                    return this.View(model);
+                }
+
+                this.ModelState.AddModelError(string.Empty, "The username is already registered.");
+            }
+
+            return this.View(model);
+        }
+
+
         public async Task<JsonResult> GetCitiesAsync(int countryId)
         {
             var country = await this.countryRepository.GetCountryWithCitiesAsync(countryId);
@@ -130,6 +183,26 @@ namespace MyVote.Web.Controllers
 
             return this.BadRequest();
         }
+        public async Task<IActionResult> ConfirmEmail(string userId, string token)
+        {
+            if (string.IsNullOrEmpty(userId) || string.IsNullOrEmpty(token))
+            {
+                return this.NotFound();
+            }
 
+            var user = await this.userHelper.GetUserByIdAsync(userId);
+            if (user == null)
+            {
+                return this.NotFound();
+            }
+
+            var result = await this.userHelper.ConfirmEmailAsync(user, token);
+            if (!result.Succeeded)
+            {
+                return this.NotFound();
+            }
+
+            return View();
+        }
     }
 }

@@ -22,17 +22,6 @@
         [Required]
         public string Ocupation { get; set; }
 
-        [MaxLength(50, ErrorMessage = "The field {0} only can contain {1} characters length.")]
-        [Required]
-        public string Stratum { get; set; }
-
-        [MaxLength(50, ErrorMessage = "The field {0} only can contain {1} characters length.")]
-        [Required]
-        public string Gender { get; set; }
-
-        [Display(Name = "Birthdate")]
-        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
-        public DateTime Birthdate { get; set; }
 
         [Display(Name = "Full Name")]
         public string FullName { get { return $"{this.FirstName} {this.LastName}"; } }

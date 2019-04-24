@@ -35,7 +35,7 @@
                     <Label
     	            Text="Rememberme in this device"
     	            VerticalOptions="Center">
-                            </Label>
+                    </Label>
                     <Switch
     	            IsToggled="{Binding IsRemember}">
                     </Switch>
@@ -45,16 +45,29 @@
                     VerticalOptions="CenterAndExpand"
                 	IsRunning="{Binding IsRunning}">
                 </ActivityIndicator>
-                <Button
-                	BackgroundColor="Black"
-                	BorderRadius="23"
-                	Command="{Binding LoginCommand}"
-                	HeightRequest="46"
-                	IsEnabled="{Binding IsEnabled}"
-                	Text="Login"
-                	TextColor="White">
-                </Button>
-
+                <StackLayout
+	    Orientation="Horizontal">
+                    <Button
+    	                BackgroundColor="Black"
+    	                BorderRadius="23"
+    	                Command="{Binding LoginCommand}"
+    	                HeightRequest="46"
+    	                HorizontalOptions="FillAndExpand"
+    	                IsEnabled="{Binding IsEnabled}"
+    	                Text="Login"
+    	                TextColor="White">
+                    </Button>
+                    <Button
+    	                BackgroundColor="Gray"
+    	                BorderRadius="23"
+    	                Command="{Binding RegisterCommand}"
+    	                HeightRequest="46"
+    	                HorizontalOptions="FillAndExpand"
+    	                IsEnabled="{Binding IsEnabled}"
+    	                Text="Register"
+    	                TextColor="White">
+                    </Button>
+                </StackLayout>
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>

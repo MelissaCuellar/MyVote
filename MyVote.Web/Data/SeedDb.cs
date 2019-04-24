@@ -40,9 +40,6 @@
                     UserName = "meli.cuellar0117@gmail.com",
                     PhoneNumber = "3014747485",
                     Ocupation = "Programer",
-                    Gender = "Female",
-                    Stratum = "3",
-                    Birthdate = new DateTime(1994, 01, 17),
                     CityId = this.context.Countries.FirstOrDefault().Cities.FirstOrDefault().Id,
                     City = this.context.Countries.FirstOrDefault().Cities.FirstOrDefault()
                 };
@@ -52,6 +49,9 @@
                 {
                     throw new InvalidOperationException("Could not create the user in seeder");
                 }
+                var token = await this.userHelper.GenerateEmailConfirmationTokenAsync(user);
+                await this.userHelper.ConfirmEmailAsync(user, token);
+
             }
 
             if (!this.context.VotingEvents.Any())
