@@ -25,6 +25,8 @@ namespace MyVote.UIForms.ViewModels
         public RegisterViewModel Register { get; set; }
 
         public VotingEventsViewModel VotingEvents { get; set; }
+
+        public CandidatesViewModel Candidates { get; set; }
        
 
         public MainViewModel()

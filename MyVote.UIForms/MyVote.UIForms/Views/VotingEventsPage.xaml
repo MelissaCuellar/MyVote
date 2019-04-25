@@ -17,9 +17,13 @@
                     <DataTemplate>
                         <ViewCell>
                             <Grid>
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding SelectVotingEventCommand}"/>
+                                </Grid.GestureRecognizers>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto"/>
                                     <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
                                 <Image
                                 	Grid.Column="0"
@@ -39,15 +43,13 @@
                                     	Text="{Binding Description}"
                                     	TextColor="Black">
                                     </Label>
-                                    <Label
-                                    	Text="{Binding StartDate, StringFormat='Start Date: {MM:dd:yyyy}'}"
-                                    	TextColor="Navy">
-                                    </Label>
-                                    <Label
-                                    	Text="{Binding EndtDate, StringFormat='End Date: {MM:dd:yyyy}'}"
-                                    	TextColor="Navy">
-                                    </Label>
+                                    
                                 </StackLayout>
+                                <Image
+                                	Grid.Column="2"
+                                	Source="ic_chevron_right"
+                                	WidthRequest="80">
+                                </Image>
                             </Grid>
                         </ViewCell>
                     </DataTemplate>

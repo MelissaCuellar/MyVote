@@ -3,20 +3,32 @@ namespace MyVote.UIForms.ViewModels
 {
     using MyVote.Common.Models;
     using MyVote.Common.Services;
+    using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using System.Linq;
     using Xamarin.Forms;
 
     public class VotingEventsViewModel : BaseViewModel
     {
         private readonly ApiService apiService;
-        private ObservableCollection<VotingEvent> votingEvents;
+        private List<VotingEvent> myVotingEvents;
+        private ObservableCollection<VotingEventItemViewModel> votingEvents;
+        private ObservableCollection<Candidate> candidates;
+        private VotingEvent votingEvent;
+        private Candidate candidate;
         private bool isRefreshing;
 
-        public ObservableCollection<VotingEvent> VotingEvents
+        public ObservableCollection<VotingEventItemViewModel> VotingEvents
         {
             get => this.votingEvents;
             set => this.SetValue(ref this.votingEvents, value);
+        }
+
+        public ObservableCollection<Candidate> Candidates
+        {
+            get => this.candidates;
+            set => this.SetValue(ref this.candidates, value);
         }
 
         public bool IsRefreshing
@@ -29,7 +41,8 @@ namespace MyVote.UIForms.ViewModels
         {
             this.apiService = new ApiService();
             this.LoadVotingEvents();
-        }
+            
+        }       
 
         private async void LoadVotingEvents()
         {
@@ -55,8 +68,41 @@ namespace MyVote.UIForms.ViewModels
                 return;
             }
 
-            var myVotingEvents = (List<VotingEvent>)response.Result;
-            this.VotingEvents = new ObservableCollection<VotingEvent>(myVotingEvents);
+            this.myVotingEvents = (List<VotingEvent>)response.Result;
+            this.RefresVotingEventsList();
+        }
+
+        private void RefresVotingEventsList()
+        {
+            this.VotingEvents = new ObservableCollection<VotingEventItemViewModel>(
+                this.myVotingEvents.Select(p => new VotingEventItemViewModel
+                {
+                    Id = p.Id,
+                    ImageUrl = p.ImageUrl,
+                    ImageFullPath = p.ImageFullPath,
+                    Description=p.Description,
+                    StartDate = p.StartDate,
+                    EndDate = p.EndDate,
+                    Name = p.Name,
+                    User = p.User
+                })
+                .OrderBy(p => p.Name)
+                .ToList());
+
+        }
+        public VotingEvent VotingEvent
+        {
+            get => this.votingEvent;
+            set
+            {
+                this.SetValue(ref this.votingEvent, value);
+                this.candidates = new ObservableCollection<Candidate>(this.VotingEvent.Candidates.OrderBy(c => c.Name));
+            }
+        }
+        public Candidate Candidate
+        {
+            get => this.candidate;
+            set => this.SetValue(ref this.candidate, value);
         }
     }
 }
