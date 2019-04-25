@@ -56,7 +56,7 @@
 
             if (!this.context.VotingEvents.Any())
             {
-                this.AddVotingEvent("Hidroituango Dam", 
+                this.AddVotingEvent("Hidroituango Dam",
                     "Do you think that the Hidroituango dam project should continue?",
                     DateTime.Parse("04/18/2019"),
                     DateTime.Parse("04/18/2019"),
