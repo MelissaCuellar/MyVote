@@ -23,17 +23,20 @@ namespace MyVote.Common.ViewModels
         private readonly IApiService apiService;
         private readonly IDialogService dialogService;
         private readonly IMvxNavigationService navigationService;
+        private readonly INetworkProvider networkProvider;
         private bool isLoading;
 
 
         public LoginViewModel(
             IApiService apiService,
             IDialogService dialogService,
-            IMvxNavigationService navigationService)
+            IMvxNavigationService navigationService,
+            INetworkProvider networkProvider)
         {
             this.apiService = apiService;
             this.dialogService = dialogService;
             this.navigationService = navigationService;
+            this.networkProvider = networkProvider;
 
             this.Email = "meli.cuellar0117@gmail.com";
             this.Password = "888888";
@@ -87,6 +90,12 @@ namespace MyVote.Common.ViewModels
             if (string.IsNullOrEmpty(this.Password))
             {
                 this.dialogService.Alert("Error", "You must enter a password.", "Accept");
+                return;
+            }
+
+            if (!this.networkProvider.IsConnectedToWifi())
+            {
+                this.dialogService.Alert("Error", "You need internet connection to enter to the App.", "Accept");
                 return;
             }
 

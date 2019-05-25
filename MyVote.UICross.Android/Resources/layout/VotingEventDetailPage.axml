@@ -11,9 +11,7 @@
     	android:layout_marginLeft="6dp"
     	android:layout_marginRight="6dp"
     	local:layout_constraintTop_toBottomOf="@+id/toolbar_cross"
-    	local:MvxItemTemplate="@layout/votingeventrow"
-    	local:MvxBind="ItemsSource VotingEvents;ItemClick ItemClickCommand;"/>
+    	local:MvxItemTemplate="@layout/votingeventdetailrow"
+    	local:MvxBind="ItemsSource Candidates;"/>
 
 </android.support.design.widget.CoordinatorLayout>
-
-

@@ -2,9 +2,12 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Windows.Input;
     using Helpers;
     using Interfaces;
     using Models;
+    using MvvmCross.Commands;
+    using MvvmCross.Navigation;
     using MvvmCross.ViewModels;
     using Newtonsoft.Json;
     using Services;
@@ -14,6 +17,8 @@
         private List<VotingEvent> votingEvents;
         private readonly IApiService apiService;
         private readonly IDialogService dialogService;
+        private readonly IMvxNavigationService navigationService;
+        private MvxCommand<VotingEvent> itemClickCommand;
 
         public List<VotingEvent> VotingEvents
         {
@@ -23,10 +28,17 @@
 
         public VotingEventsViewModel(
             IApiService apiService,
-            IDialogService dialogService)
+            IDialogService dialogService,
+            IMvxNavigationService navigationService)
         {
             this.apiService = apiService;
             this.dialogService = dialogService;
+            this.navigationService = navigationService;
+        }
+
+        public override void ViewAppeared()
+        {
+            base.ViewAppeared();
             this.LoadVotingEvents();
         }
 
@@ -48,6 +60,19 @@
 
             this.VotingEvents = (List<VotingEvent>)response.Result;
             this.VotingEvents = this.VotingEvents.OrderBy(p=>p.Name).ToList();
+        }
+
+        public ICommand ItemClickCommand
+        {
+            get
+            {
+                this.itemClickCommand = new MvxCommand<VotingEvent>(this.OnItemClickCommand);
+                return itemClickCommand;
+            }
+        }
+        private async void OnItemClickCommand(VotingEvent votingEvent)
+        {
+            await this.navigationService.Navigate<VotingEventsDetailViewModel, NavigationArgs>(new NavigationArgs { VotingEvent = votingEvent });
         }
 
     }
