@@ -6,12 +6,12 @@
     using MvvmCross.Platforms.Android.Views;
 
     [Activity(Label = "@string/app_name")]
-    public class LoginView : MvxActivity<LoginViewModel>
+    public class VotingEventsView : MvxActivity<VotingEventsViewModel>
     {
-        protected override void OnCreate(Bundle savedInstanceState)
+        protected override void OnCreate(Bundle bundle)
         {
-            base.OnCreate(savedInstanceState);
-            this.SetContentView(Resource.Layout.LoginPage);
+            base.OnCreate(bundle);
+            this.SetContentView(Resource.Layout.VotingEventsPage);
         }
     }
 }

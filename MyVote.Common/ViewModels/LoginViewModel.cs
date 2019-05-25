@@ -8,7 +8,10 @@ namespace MyVote.Common.ViewModels
     using Interfaces;
     using Models;
     using MvvmCross.Commands;
+    using MvvmCross.Navigation;
     using MvvmCross.ViewModels;
+    using MyVote.Common.Helpers;
+    using Newtonsoft.Json;
     using Services;
 
     public class LoginViewModel : MvxViewModel
@@ -16,9 +19,26 @@ namespace MyVote.Common.ViewModels
         private string email;
         private string password;
         private MvxCommand loginCommand;
+        private MvxCommand registerCommand;
         private readonly IApiService apiService;
         private readonly IDialogService dialogService;
+        private readonly IMvxNavigationService navigationService;
         private bool isLoading;
+
+
+        public LoginViewModel(
+            IApiService apiService,
+            IDialogService dialogService,
+            IMvxNavigationService navigationService)
+        {
+            this.apiService = apiService;
+            this.dialogService = dialogService;
+            this.navigationService = navigationService;
+
+            this.Email = "meli.cuellar0117@gmail.com";
+            this.Password = "888888";
+            this.IsLoading = false;
+        }
 
         public bool IsLoading
         {
@@ -47,16 +67,13 @@ namespace MyVote.Common.ViewModels
             }
         }
 
-        public LoginViewModel(
-            IApiService apiService,
-            IDialogService dialogService)
+        public ICommand RegisterCommand
         {
-            this.apiService = apiService;
-            this.dialogService = dialogService;
-
-            this.Email = "meli.cuellar0117@gmail.com";
-            this.Password = "888888";
-            this.IsLoading = false;
+            get
+            {
+                this.registerCommand = this.registerCommand ?? new MvxCommand(this.DoRegisterCommand);
+                return this.registerCommand;
+            }
         }
 
         private async void DoLoginCommand()
@@ -94,9 +111,20 @@ namespace MyVote.Common.ViewModels
                 return;
             }
 
+            var token = (TokenResponse)response.Result;
+            Settings.UserEmail = this.Email;
+            Settings.Token = JsonConvert.SerializeObject(token);
             this.IsLoading = false;
-            this.dialogService.Alert("Ok", "Fuck yeah!", "Accept");
+
+            await this.navigationService.Navigate<VotingEventsViewModel>();
+
         }
+
+        private async void DoRegisterCommand()
+        {
+            await this.navigationService.Navigate<RegisterViewModel>();
+        }
+
     }
 
 }

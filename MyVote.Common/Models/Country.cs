@@ -18,6 +18,8 @@ namespace MyVote.Common.Models
 
         [JsonProperty("numberCities")]
         public int NumberCities { get; set; }
+
+        public override string ToString() => this.Name;
     }
 
 }
