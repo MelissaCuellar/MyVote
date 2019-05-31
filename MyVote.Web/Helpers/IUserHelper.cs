@@ -30,7 +30,13 @@ namespace MyVote.Web.Helpers
 
         Task<bool> IsUserInRoleAsync(User user, string roleName);
 
+        Task<string> GeneratePasswordResetTokenAsync(User user);
 
+        Task<IdentityResult> ResetPasswordAsync(User user, string token, string password);
+
+        Task<IdentityResult> UpdateUserAsync(User user);
+
+        Task<IdentityResult> ChangePasswordAsync(User user, string oldPassword, string newPassword);
     }
 
 

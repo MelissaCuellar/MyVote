@@ -21,6 +21,7 @@ namespace MyVote.UIForms
             if (Settings.IsRemember)
             {
                 var token = JsonConvert.DeserializeObject<TokenResponse>(Settings.Token);
+
                 if (token.Expiration > DateTime.Now)
                 {
                     var mainViewModel = MainViewModel.GetInstance();

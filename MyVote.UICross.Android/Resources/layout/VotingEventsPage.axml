@@ -15,5 +15,3 @@
     	local:MvxBind="ItemsSource VotingEvents;ItemClick ItemClickCommand;"/>
 
 </android.support.design.widget.CoordinatorLayout>
-
-

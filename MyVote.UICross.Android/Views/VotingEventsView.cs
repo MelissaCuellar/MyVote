@@ -1,4 +1,5 @@
-﻿namespace MyVote.UICross.Android.Views
+﻿
+namespace MyVote.UICross.Android.Views
 {
     using Common.ViewModels;
     using global::Android.App;
