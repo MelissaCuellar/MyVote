@@ -31,8 +31,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MVVMCross", "MVVMCross", "{
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyVote.UICross.Android", "MyVote.UICross.Android\MyVote.UICross.Android.csproj", "{DC5B2076-13F6-4F08-834F-44372B741232}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyVote.UICross.iOS", "MyVote.UICross.iOS\MyVote.UICross.iOS.csproj", "{5A77091A-9BDC-416B-A38B-91ADEB56EED7}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -165,16 +163,6 @@ Global
 		{DC5B2076-13F6-4F08-834F-44372B741232}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
 		{DC5B2076-13F6-4F08-834F-44372B741232}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 		{DC5B2076-13F6-4F08-834F-44372B741232}.Release|iPhoneSimulator.Deploy.0 = Release|Any CPU
-		{5A77091A-9BDC-416B-A38B-91ADEB56EED7}.Debug|Any CPU.ActiveCfg = Debug|iPhone
-		{5A77091A-9BDC-416B-A38B-91ADEB56EED7}.Debug|iPhone.ActiveCfg = Debug|iPhone
-		{5A77091A-9BDC-416B-A38B-91ADEB56EED7}.Debug|iPhone.Build.0 = Debug|iPhone
-		{5A77091A-9BDC-416B-A38B-91ADEB56EED7}.Debug|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator
-		{5A77091A-9BDC-416B-A38B-91ADEB56EED7}.Debug|iPhoneSimulator.Build.0 = Debug|iPhoneSimulator
-		{5A77091A-9BDC-416B-A38B-91ADEB56EED7}.Release|Any CPU.ActiveCfg = Release|iPhone
-		{5A77091A-9BDC-416B-A38B-91ADEB56EED7}.Release|iPhone.ActiveCfg = Release|iPhone
-		{5A77091A-9BDC-416B-A38B-91ADEB56EED7}.Release|iPhone.Build.0 = Release|iPhone
-		{5A77091A-9BDC-416B-A38B-91ADEB56EED7}.Release|iPhoneSimulator.ActiveCfg = Release|iPhoneSimulator
-		{5A77091A-9BDC-416B-A38B-91ADEB56EED7}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -191,7 +179,6 @@ Global
 		{D8FEAF2A-2845-4C9A-B6A5-F423F691BFFE} = {19AA82D5-8F59-40BA-B7F6-5CF12FDCAAFC}
 		{3EA8AE6F-B568-4C50-9EA3-82FA10379727} = {B27BF628-E683-404C-95EB-B5799CFBAAF8}
 		{DC5B2076-13F6-4F08-834F-44372B741232} = {3EA8AE6F-B568-4C50-9EA3-82FA10379727}
-		{5A77091A-9BDC-416B-A38B-91ADEB56EED7} = {3EA8AE6F-B568-4C50-9EA3-82FA10379727}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BF944A34-3359-442E-B97B-C813A72E86B0}

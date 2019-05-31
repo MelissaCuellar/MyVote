@@ -8886,6 +8886,9 @@ namespace MyVote.UICross.Android
 			// aapt resource value: 0x7f0a0090
 			public const int group_divider = 2131361936;
 			
+			// aapt resource value: 0x7f0a00e8
+			public const int header_layout = 2131362024;
+			
 			// aapt resource value: 0x7f0a0005
 			public const int home = 2131361797;
 			
@@ -8943,8 +8946,8 @@ namespace MyVote.UICross.Android
 			// aapt resource value: 0x7f0a00cb
 			public const int loginButton = 2131361995;
 			
-			// aapt resource value: 0x7f0a00e9
-			public const int masked = 2131362025;
+			// aapt resource value: 0x7f0a00ea
+			public const int masked = 2131362026;
 			
 			// aapt resource value: 0x7f0a00ab
 			public const int message = 2131361963;
@@ -9279,8 +9282,8 @@ namespace MyVote.UICross.Android
 			// aapt resource value: 0x7f0a001b
 			public const int view_offset_helper = 2131361819;
 			
-			// aapt resource value: 0x7f0a00e8
-			public const int visible = 2131362024;
+			// aapt resource value: 0x7f0a00e9
+			public const int visible = 2131362025;
 			
 			// aapt resource value: 0x7f0a00e6
 			public const int votingEventImageView = 2131362022;
@@ -9529,64 +9532,67 @@ namespace MyVote.UICross.Android
 			public const int EventsPage = 2130968621;
 			
 			// aapt resource value: 0x7f04002e
-			public const int LoginPage = 2130968622;
+			public const int layout1 = 2130968622;
 			
 			// aapt resource value: 0x7f04002f
-			public const int mtrl_layout_snackbar = 2130968623;
+			public const int LoginPage = 2130968623;
 			
 			// aapt resource value: 0x7f040030
-			public const int mtrl_layout_snackbar_include = 2130968624;
+			public const int mtrl_layout_snackbar = 2130968624;
 			
 			// aapt resource value: 0x7f040031
-			public const int notification_action = 2130968625;
+			public const int mtrl_layout_snackbar_include = 2130968625;
 			
 			// aapt resource value: 0x7f040032
-			public const int notification_action_tombstone = 2130968626;
+			public const int notification_action = 2130968626;
 			
 			// aapt resource value: 0x7f040033
-			public const int notification_template_custom_big = 2130968627;
+			public const int notification_action_tombstone = 2130968627;
 			
 			// aapt resource value: 0x7f040034
-			public const int notification_template_icon_group = 2130968628;
+			public const int notification_template_custom_big = 2130968628;
 			
 			// aapt resource value: 0x7f040035
-			public const int notification_template_part_chronometer = 2130968629;
+			public const int notification_template_icon_group = 2130968629;
 			
 			// aapt resource value: 0x7f040036
-			public const int notification_template_part_time = 2130968630;
+			public const int notification_template_part_chronometer = 2130968630;
 			
 			// aapt resource value: 0x7f040037
-			public const int RegisterPage = 2130968631;
+			public const int notification_template_part_time = 2130968631;
 			
 			// aapt resource value: 0x7f040038
-			public const int select_dialog_item_material = 2130968632;
+			public const int RegisterPage = 2130968632;
 			
 			// aapt resource value: 0x7f040039
-			public const int select_dialog_multichoice_material = 2130968633;
+			public const int select_dialog_item_material = 2130968633;
 			
 			// aapt resource value: 0x7f04003a
-			public const int select_dialog_singlechoice_material = 2130968634;
+			public const int select_dialog_multichoice_material = 2130968634;
 			
 			// aapt resource value: 0x7f04003b
-			public const int SplashPage = 2130968635;
+			public const int select_dialog_singlechoice_material = 2130968635;
 			
 			// aapt resource value: 0x7f04003c
-			public const int support_simple_spinner_dropdown_item = 2130968636;
+			public const int SplashPage = 2130968636;
 			
 			// aapt resource value: 0x7f04003d
-			public const int Toolbar = 2130968637;
+			public const int support_simple_spinner_dropdown_item = 2130968637;
 			
 			// aapt resource value: 0x7f04003e
-			public const int VotingEventDetailPage = 2130968638;
+			public const int Toolbar = 2130968638;
 			
 			// aapt resource value: 0x7f04003f
-			public const int VotingEventDetailRow = 2130968639;
+			public const int VotingEventDetailPage = 2130968639;
 			
 			// aapt resource value: 0x7f040040
-			public const int VotingEventRow = 2130968640;
+			public const int VotingEventDetailRow = 2130968640;
 			
 			// aapt resource value: 0x7f040041
-			public const int VotingEventsPage = 2130968641;
+			public const int VotingEventRow = 2130968641;
+			
+			// aapt resource value: 0x7f040042
+			public const int VotingEventsPage = 2130968642;
 			
 			static Layout()
 			{
