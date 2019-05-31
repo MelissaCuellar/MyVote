@@ -5,13 +5,26 @@
 	android:layout_width="match_parent"
 	android:layout_height="match_parent">
 
-	<mvvmcross.droid.support.v7.recyclerview.MvxRecyclerView
-    	android:layout_width="match_parent"
-    	android:layout_height="wrap_content"
-    	android:layout_marginLeft="6dp"
-    	android:layout_marginRight="6dp"
-    	local:layout_constraintTop_toBottomOf="@+id/toolbar_cross"
-    	local:MvxItemTemplate="@layout/votingeventdetailrow"
-    	local:MvxBind="ItemsSource Candidates;"/>
+	<LinearLayout
+    	android:id="@+id/header_layout"
+    	android:orientation="vertical"
+    	android:minWidth="25px"
+    	android:minHeight="25px"
+    	android:layout_width="fill_parent"
+    	android:layout_height="fill_parent">
 
+    	<include
+        	layout="@layout/toolbar" />
+
+    	<mvvmcross.droid.support.v7.recyclerview.MvxRecyclerView
+        	android:layout_width="match_parent"
+        	android:layout_height="wrap_content"
+        	android:layout_marginLeft="6dp"
+        	android:layout_marginRight="6dp"
+        	local:layout_constraintTop_toBottomOf="@+id/toolbar_cross"
+            local:MvxItemTemplate="@layout/votingeventdetailrow"
+            local:MvxBind="ItemsSource Candidates;"/>
+
+	</LinearLayout>
 </android.support.design.widget.CoordinatorLayout>
+

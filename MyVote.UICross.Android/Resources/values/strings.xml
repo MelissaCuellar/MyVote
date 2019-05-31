@@ -4,6 +4,7 @@
   <string name="edit_register">Edit User</string>
   <string name="change_password">Change Password</string>
   <string name="votingevents">Voting Events</string>
+  <string name="candidates">Candidates</string>
   <string name="navigation_drawer_open">navigation_drawer_open</string>
   <string name="navigation_drawer_closed">navigation_drawer_closed</string>
 </resources>
