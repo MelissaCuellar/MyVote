@@ -39,6 +39,36 @@ namespace MyVote.UICross.Android.Services
 
             adb.Create().Show();
         }
+
+        public void Confirm(
+            string title,
+            string message,
+            string okButtonTitle,
+            string dismissButtonTitle,
+            Action confirmed,
+            Action dismissed)
+        {
+            AlertDialog.Builder builder = new AlertDialog.Builder(Mvx.Resolve<IMvxAndroidCurrentTopActivity>().Activity);
+            AlertDialog alertdialog = builder.Create();
+            builder.SetTitle(title);
+            builder.SetMessage(message);
+
+            builder.SetNegativeButton(dismissButtonTitle, (senderAlert, args) => {
+                if (dismissed != null)
+                {
+                    dismissed.Invoke();
+                }
+            });
+
+            builder.SetPositiveButton(okButtonTitle, (senderAlert, args) => {
+                if (confirmed != null)
+                {
+                    confirmed.Invoke();
+                }
+            });
+
+            builder.Show();
+        }
     }
 
 }

@@ -51,8 +51,13 @@ namespace MyVote.Web.Data.Repositories
 
         public IQueryable GetAllWithCandidates()
         {
-            return this.context.VotingEvents.Include(v=>v.Candidates);
+            return this.context.VotingEvents
+                .Include(c=>c.Candidates)
+                .ThenInclude(v => v.Votes)
+                .ThenInclude(u => u.User);
         }
+
+       
 
         public async Task<Candidate> GetCandidateAsync(int idVote)
         {
@@ -63,6 +68,8 @@ namespace MyVote.Web.Data.Repositories
         {
             return await this.context.VotingEvents
                 .Include(c => c.Candidates)
+                .ThenInclude(v => v.Votes)
+                .ThenInclude(u => u.User)
                 .Where(c => c.Id == id)
                 .FirstOrDefaultAsync();
         }
@@ -79,6 +86,28 @@ namespace MyVote.Web.Data.Repositories
             this.context.Candidates.Update(candidate);
             await this.context.SaveChangesAsync();
             return votingEvent.Id;
+        }
+
+        public async Task<bool> AddVoteAsync(Vote model, int idCandidate)
+        {
+            var candidate = await this.GetVotesAsync(idCandidate);
+            if (candidate == null)
+            {
+                return false;
+            }
+
+            candidate.Votes.Add(model);
+            this.context.Candidates.Update(candidate);
+            await this.context.SaveChangesAsync();
+            return true;
+        }
+
+        private async Task<Candidate> GetVotesAsync(int idCandidate)
+        {
+            return await this.context.Candidates
+                .Include(c => c.Votes)
+                .Where(c => c.Id == idCandidate)
+                .FirstOrDefaultAsync();
         }
     }
 }

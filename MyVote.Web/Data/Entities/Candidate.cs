@@ -2,6 +2,7 @@
 namespace MyVote.Web.Data.Entities
 {
     using System;
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     public class Candidate: IEntity
     {
@@ -15,8 +16,10 @@ namespace MyVote.Web.Data.Entities
         [Required]
         public string Proposal { get; set; }
 
-        [DisplayFormat(DataFormatString = "{0:N0}")]
-        public int NumVotos { get; }
+        public ICollection<Vote> Votes { get; set; }
+
+        [Display(Name = "#Votes")]
+        public int NumVotes { get { return this.Votes == null ? 0 : this.Votes.Count; } }
 
         [Display(Name = "Image")]
         public string ImageUrl { get; set; }

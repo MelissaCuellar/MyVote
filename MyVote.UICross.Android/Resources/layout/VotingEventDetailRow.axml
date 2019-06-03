@@ -41,6 +41,36 @@
    		 local:layout_constraintLeft_toRightOf="@+id/candidateImageView"
    		 local:MvxBind="Text Proposal" />
 
+     <TextView
+    	android:id="@+id/text"
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+        android:textStyle="italic"
+   		android:layout_marginTop="6dp"
+   		android:textSize="14dp"
+   		local:layout_constraintTop_toBottomOf="@+id/proposalTextView"
+   		local:layout_constraintLeft_toRightOf="@+id/candidateImageView"
+    	android:text="#Votos: "/>
+
+    <TextView
+   		 android:id="@+id/numVotosTextView"
+   		 android:layout_width="wrap_content"
+   		 android:layout_height="wrap_content"
+   		 android:textStyle="italic"
+   		 android:layout_marginTop="6dp"
+   		 android:textSize="14dp"
+   		 local:layout_constraintTop_toBottomOf="@+id/proposalTextView"
+   		 local:layout_constraintLeft_toRightOf="@+id/text"
+   		 local:MvxBind="Text NumVotes" />
+
+        <ImageView
+    	android:id="@+id/imageViewEmail"
+    	android:src="@drawable/votar"
+    	android:layout_width="80dp"
+    	android:layout_height="80dp"
+        android:layout_marginLeft="80dp"
+        local:layout_constraintTop_toBottomOf="@+id/proposalTextView"
+   		local:layout_constraintLeft_toRightOf="@+id/numVotosTextView"/>
     </android.support.constraint.ConstraintLayout>
 
 </android.support.v7.widget.CardView>

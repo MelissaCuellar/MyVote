@@ -95,7 +95,7 @@
         	    android:layout_width="wrap_content"
         	    android:layout_height="wrap_content"
         	    android:textSize="18dp"
-        	    android:text="Ocupation:"/>
+        	    android:text="Occupation:"/>
 
     	    <EditText
         	    android:inputType="textEmailAddress"
@@ -167,63 +167,69 @@
         	    local:MvxBind="Text Phone"/>
 
 	    </LinearLayout>
+        <LinearLayout
+            android:id="@+id/passwordName_layout"
+        	android:layout_width="match_parent"
+        	android:layout_height="wrap_content"
+        	android:orientation="horizontal"
+        	local:layout_constraintTop_toBottomOf="@+id/phoneName_layout">
+	    <TextView
+            	android:layout_width="wrap_content"
+            	android:layout_height="wrap_content"
+            	android:textSize="18dp"
+            	android:text="Password:"/>
 
-	    <LinearLayout
-    	    android:id="@+id/passwordName_layout"
-    	    android:layout_width="match_parent"
-    	    android:layout_height="wrap_content"
-    	    android:orientation="horizontal"
-    	    local:layout_constraintTop_toBottomOf="@+id/phoneName_layout">
+        	<EditText
+            	android:inputType="textPassword"
+            	android:layout_width="match_parent"
+            	android:layout_height="wrap_content"
+            	android:textSize="18dp"
+            	local:MvxBind="Text Password"/>
 
-    	    <TextView
-        	    android:layout_width="wrap_content"
-        	    android:layout_height="wrap_content"
-        	    android:textSize="18dp"
-        	    android:text="Password:"/>
+    	</LinearLayout>
 
-    	    <EditText
-        	    android:inputType="textEmailAddress"
-        	    android:layout_width="match_parent"
-        	    android:layout_height="wrap_content"
-        	    android:textSize="18dp"
-        	    local:MvxBind="Text Password"/>
+    	<LinearLayout
+        	android:id="@+id/confirmName_layout"
+        	android:layout_width="match_parent"
+        	android:layout_height="wrap_content"
+        	android:orientation="horizontal"
+        	local:layout_constraintTop_toBottomOf="@+id/passwordName_layout">
 
-	    </LinearLayout>
+        	<TextView
+            	android:layout_width="wrap_content"
+            	android:layout_height="wrap_content"
+            	android:textSize="18dp"
+            	android:text="Password confirm"/>
 
-	    <LinearLayout
-    	    android:id="@+id/confirmName_layout"
-    	    android:layout_width="match_parent"
-    	    android:layout_height="wrap_content"
-    	    android:orientation="horizontal"
-    	    local:layout_constraintTop_toBottomOf="@+id/passwordName_layout">
+        	<EditText
+            	android:inputType="textPassword"
+            	android:layout_width="match_parent"
+            	android:layout_height="wrap_content"
+            	android:textSize="18dp"
+            	local:MvxBind="Text ConfirmPassword"/>
 
-    	    <TextView
-        	    android:layout_width="wrap_content"
-        	    android:layout_height="wrap_content"
-        	    android:textSize="18dp"
-        	    android:text="Password confirm"/>
+    	</LinearLayout>
 
-    	    <EditText
-        	    android:inputType="textEmailAddress"
-        	    android:layout_width="match_parent"
-        	    android:layout_height="wrap_content"
-        	    android:textSize="18dp"
-        	    local:MvxBind="Text ConfirmPassword"/>
 
-	    </LinearLayout>
+        <ProgressBar
+        	android:layout_height="wrap_content"
+        	android:layout_width="match_parent"
+        	local:MvxBind="Visibility Visibility(IsLoading)"
+        	android:indeterminateOnly="true"
+        	android:keepScreenOn="true"/>
 
     </LinearLayout>
 	<Button
+    	android:layout_margin="10dp"
     	android:id="@+id/newUserButton"
-    	android:text="REGISTER NEW USER"
+    	android:text="Register New User"
+    	android:textColor="#FFFFFF"
     	android:layout_width="match_parent"
     	android:layout_height="wrap_content"
     	android:layout_marginBottom="2dp"
     	local:MvxBind="Click RegisterCommand"
-    	android:textColor="#F8FAFB"
-        local:layout_constraintBottom_toBottomOf="parent"
+    	local:layout_constraintBottom_toBottomOf="parent"
     	android:background="@drawable/primary_button"/>
-
-
 </android.support.constraint.ConstraintLayout>
+
 

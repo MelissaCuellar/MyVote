@@ -15,6 +15,8 @@
 
         public DbSet<Candidate> Candidates { get; set; }
 
+
+
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
         }

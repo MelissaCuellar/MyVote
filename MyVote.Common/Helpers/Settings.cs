@@ -1,5 +1,4 @@
-﻿
-namespace MyVote.Common.Helpers
+﻿namespace MyVote.Common.Helpers
 {
     using Plugin.Settings;
     using Plugin.Settings.Abstractions;

@@ -21,5 +21,9 @@ namespace MyVote.Web.Data.Repositories
         Task<int> DeleteCandidateAsync(Candidate candidate);
 
         IQueryable GetAllWithCandidates();
+
+
+
+        Task<bool> AddVoteAsync(Vote model, int idCandidate);
     }
 }

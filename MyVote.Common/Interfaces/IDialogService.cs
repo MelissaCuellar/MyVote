@@ -12,5 +12,12 @@ namespace MyVote.Common.Interfaces
                     string title,
                     string okbtnText,
                     Action confirmed);
+
+        void Confirm(string title, 
+            string message, 
+            string okButtonTitle, 
+            string dismissButtonTitle, 
+            Action confirmed, 
+            Action dismissed);
     }
 }

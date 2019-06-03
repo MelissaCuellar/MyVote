@@ -59,7 +59,7 @@
             }
 
             this.VotingEvents = (List<VotingEvent>)response.Result;
-            this.VotingEvents = this.VotingEvents.OrderBy(p=>p.Name).ToList();
+            this.VotingEvents = this.VotingEvents.OrderBy(p => p.Name).ToList();
         }
 
         public ICommand ItemClickCommand

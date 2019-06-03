@@ -66,7 +66,7 @@ namespace MyVote.Web.Controllers
                 CandidateId = candidate.Id,
                 Name=candidate.Name,
                 Proposal=candidate.Proposal,
-                ImageUrl=candidate.ImageUrl
+                ImageUrl=candidate.ImageUrl,
             };
         }
 
@@ -126,9 +126,8 @@ namespace MyVote.Web.Controllers
             {
                 Id=model.CandidateId,
                 ImageUrl=path,
-                Name=model.Name,
+                Name=model.Name,                
                 Proposal=model.Proposal
-                
             };
         }
 

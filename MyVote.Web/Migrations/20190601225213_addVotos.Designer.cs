@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyVote.Web.Data;
 
 namespace MyVote.Web.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20190601225213_addVotos")]
+    partial class addVotos
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -141,6 +143,8 @@ namespace MyVote.Web.Migrations
                         .IsRequired()
                         .HasMaxLength(50);
 
+                    b.Property<int>("NumVotos");
+
                     b.Property<string>("Proposal")
                         .IsRequired()
                         .HasMaxLength(150);
@@ -255,26 +259,6 @@ namespace MyVote.Web.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("MyVote.Web.Data.Entities.Vote", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("CandidateId");
-
-                    b.Property<string>("UserId")
-                        .IsRequired();
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CandidateId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Vote");
-                });
-
             modelBuilder.Entity("MyVote.Web.Data.Entities.VotingEvent", b =>
                 {
                     b.Property<int>("Id")
@@ -368,18 +352,6 @@ namespace MyVote.Web.Migrations
                     b.HasOne("MyVote.Web.Data.Entities.City", "City")
                         .WithMany()
                         .HasForeignKey("CityId")
-                        .OnDelete(DeleteBehavior.Restrict);
-                });
-
-            modelBuilder.Entity("MyVote.Web.Data.Entities.Vote", b =>
-                {
-                    b.HasOne("MyVote.Web.Data.Entities.Candidate")
-                        .WithMany("Votes")
-                        .HasForeignKey("CandidateId");
-
-                    b.HasOne("MyVote.Web.Data.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
