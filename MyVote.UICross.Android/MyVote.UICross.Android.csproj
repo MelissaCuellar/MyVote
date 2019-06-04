@@ -70,6 +70,7 @@
     <Compile Include="Views\LoginView.cs" />
     <Compile Include="Views\RecoverPasswordView.cs" />
     <Compile Include="Views\RegisterView.cs" />
+    <Compile Include="Views\ShowEndView.cs" />
     <Compile Include="Views\SplashView.cs" />
     <Compile Include="Views\VotingEventDetailView.cs" />
     <Compile Include="Views\VotingEventsView.cs" />
@@ -216,6 +217,16 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\RecoverPasswordPage.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\ShowEndPage.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\ShowEndRow.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

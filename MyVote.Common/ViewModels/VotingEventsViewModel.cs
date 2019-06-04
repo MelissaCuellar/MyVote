@@ -75,9 +75,7 @@
         {
             if (votingEvent.EndDate < DateTime.Now)
             {
-                this.dialogService.Alert("Error",
-                    "The event voting no start yet.",
-                    "Accept");
+                await this.navigationService.Navigate<ShowEndViewModel, NavigationArgs>(new NavigationArgs { VotingEvent = votingEvent });
                 return;
             }
 
@@ -88,7 +86,7 @@
                     "Accept");
                 return;
             }
-
+            
                 foreach (var vote in votingEvent.Candidates)
             {
                 var voteUserEmail = vote.Votes.Where(v => v.User.Email == Settings.UserEmail).FirstOrDefault();

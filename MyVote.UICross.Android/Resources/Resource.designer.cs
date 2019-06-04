@@ -9601,25 +9601,31 @@ namespace MyVote.UICross.Android
 			public const int select_dialog_singlechoice_material = 2130968636;
 			
 			// aapt resource value: 0x7f04003d
-			public const int SplashPage = 2130968637;
+			public const int ShowEndPage = 2130968637;
 			
 			// aapt resource value: 0x7f04003e
-			public const int support_simple_spinner_dropdown_item = 2130968638;
+			public const int ShowEndRow = 2130968638;
 			
 			// aapt resource value: 0x7f04003f
-			public const int Toolbar = 2130968639;
+			public const int SplashPage = 2130968639;
 			
 			// aapt resource value: 0x7f040040
-			public const int VotingEventDetailPage = 2130968640;
+			public const int support_simple_spinner_dropdown_item = 2130968640;
 			
 			// aapt resource value: 0x7f040041
-			public const int VotingEventDetailRow = 2130968641;
+			public const int Toolbar = 2130968641;
 			
 			// aapt resource value: 0x7f040042
-			public const int VotingEventRow = 2130968642;
+			public const int VotingEventDetailPage = 2130968642;
 			
 			// aapt resource value: 0x7f040043
-			public const int VotingEventsPage = 2130968643;
+			public const int VotingEventDetailRow = 2130968643;
+			
+			// aapt resource value: 0x7f040044
+			public const int VotingEventRow = 2130968644;
+			
+			// aapt resource value: 0x7f040045
+			public const int VotingEventsPage = 2130968645;
 			
 			static Layout()
 			{
@@ -9797,6 +9803,9 @@ namespace MyVote.UICross.Android
 			// aapt resource value: 0x7f0d003a
 			public const int edit_register = 2131558458;
 			
+			// aapt resource value: 0x7f0d003f
+			public const int end = 2131558463;
+			
 			// aapt resource value: 0x7f0d0036
 			public const int fab_scroll_shrink_grow_autohide_behavior = 2131558454;
 			
@@ -9812,11 +9821,11 @@ namespace MyVote.UICross.Android
 			// aapt resource value: 0x7f0d002f
 			public const int mtrl_chip_close_icon_content_description = 2131558447;
 			
-			// aapt resource value: 0x7f0d0040
-			public const int navigation_drawer_closed = 2131558464;
+			// aapt resource value: 0x7f0d0041
+			public const int navigation_drawer_closed = 2131558465;
 			
-			// aapt resource value: 0x7f0d003f
-			public const int navigation_drawer_open = 2131558463;
+			// aapt resource value: 0x7f0d0040
+			public const int navigation_drawer_open = 2131558464;
 			
 			// aapt resource value: 0x7f0d0030
 			public const int password_toggle_content_description = 2131558448;

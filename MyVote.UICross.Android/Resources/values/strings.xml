@@ -6,6 +6,7 @@
   <string name="votingevents">Voting Events</string>
   <string name="recoverpassword">Recover Password</string>
   <string name="candidates">Candidates</string>
+  <string name="end">Event Finished</string>
   <string name="navigation_drawer_open">navigation_drawer_open</string>
   <string name="navigation_drawer_closed">navigation_drawer_closed</string>
 </resources>
