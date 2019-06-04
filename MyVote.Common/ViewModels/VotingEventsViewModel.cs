@@ -1,5 +1,6 @@
 ﻿namespace MyVote.Common.ViewModels
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Windows.Input;
@@ -72,7 +73,23 @@
         }
         private async void OnItemClickCommand(VotingEvent votingEvent)
         {
-            foreach(var vote in votingEvent.Candidates)
+            if (votingEvent.EndDate < DateTime.Now)
+            {
+                this.dialogService.Alert("Error",
+                    "The event voting no start yet.",
+                    "Accept");
+                return;
+            }
+
+            if (votingEvent.StartDate > DateTime.Now)
+            {
+                this.dialogService.Alert("Error", 
+                    "The event voting no start yet.", 
+                    "Accept");
+                return;
+            }
+
+                foreach (var vote in votingEvent.Candidates)
             {
                 var voteUserEmail = vote.Votes.Where(v => v.User.Email == Settings.UserEmail).FirstOrDefault();
 

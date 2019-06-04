@@ -132,7 +132,7 @@ namespace MyVote.Common.ViewModels
 
             var token = (TokenResponse)response.Result;
             var response2 = await this.apiService.GetUserByEmailAsync(
-                "https://shopzulu.azurewebsites.net",
+                "https://myvotesystem.azurewebsites.net",
                 "/api",
                 "/Account/GetUserByEmail",
                 this.Email,
