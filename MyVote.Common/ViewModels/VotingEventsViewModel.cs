@@ -72,6 +72,19 @@
         }
         private async void OnItemClickCommand(VotingEvent votingEvent)
         {
+            foreach(var vote in votingEvent.Candidates)
+            {
+                var voteUserEmail = vote.Votes.Where(v => v.User.Email == Settings.UserEmail).FirstOrDefault();
+
+                if(voteUserEmail!=null)
+                {
+                    this.dialogService.Alert("Error",
+                        "You have already voted for this event, thank you.", 
+                        "Accept");
+                    return;
+                }
+            }
+
             await this.navigationService.Navigate<VotingEventsDetailViewModel, NavigationArgs>(new NavigationArgs { VotingEvent = votingEvent });
         }
 
