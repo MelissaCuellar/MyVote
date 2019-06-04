@@ -49,6 +49,16 @@
     	local:MvxBind="Text Password"
     	app:layout_constraintTop_toBottomOf="@+id/textViewPassword"/>
 
+    <TextView
+    	android:id="@+id/recoverPass"
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+        android:padding="40px"
+    	android:text="Forgot your password?"
+        android:textColor="#2344DC"
+        local:MvxBind="Click RecoverPasswordCommand"
+    	app:layout_constraintTop_toBottomOf="@+id/editTextPassword"/>
+
 	<LinearLayout
     	android:id="@+id/buttonContainer"
     	android:layout_width="wrap_content"

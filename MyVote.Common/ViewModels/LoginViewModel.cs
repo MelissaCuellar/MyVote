@@ -18,6 +18,7 @@ namespace MyVote.Common.ViewModels
     {
         private string email;
         private string password;
+        private MvxCommand recoverPasswordCommand;
         private MvxCommand loginCommand;
         private MvxCommand registerCommand;
         private readonly IApiService apiService;
@@ -47,6 +48,15 @@ namespace MyVote.Common.ViewModels
         {
             get => this.isLoading;
             set => this.SetProperty(ref this.isLoading, value);
+        }
+
+        public ICommand RecoverPasswordCommand
+        {
+            get
+            {
+                this.recoverPasswordCommand = this.recoverPasswordCommand ?? new MvxCommand(this.DoRecoverPasswordCommand);
+                return this.recoverPasswordCommand;
+            }
         }
 
         public string Email
@@ -139,6 +149,11 @@ namespace MyVote.Common.ViewModels
 
             await this.navigationService.Navigate<VotingEventsViewModel>();
 
+        }
+
+        private async void DoRecoverPasswordCommand()
+        {
+            await this.navigationService.Navigate<RecoverPasswordViewModel>();
         }
 
         private async void DoRegisterCommand()

@@ -94,17 +94,15 @@ namespace MyVote.Common.ViewModels
         {
             
                 
-                    this.dialogService.Confirm(
+               this.dialogService.Confirm(
                "Confirm",
                "Are you sure to vote for " + candidate.Name + "?",
                "Yes",
                "No",
                () => { this.ConfirmVoteCandidate(candidate); },
                null);
-                
-            
-               
-
+                           
+              
         }
 
         private async void ConfirmVoteCandidate(Candidate candidate)

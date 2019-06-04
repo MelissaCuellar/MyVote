@@ -10,6 +10,7 @@ namespace MyVote.Web.Data.Entities
     {
         public int Id { get; set; }
 
+
         [Required]
         public User User { get; set; }
     }

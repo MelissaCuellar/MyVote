@@ -23,6 +23,9 @@ namespace MyVote.Common.Services
 
         Task<Response> ChangePasswordAsync(string urlBase, string servicePrefix, string controller, ChangePasswordRequest changePasswordRequest, string tokenType, string accessToken);
 
+        Task<Response> RecoverPasswordAsync(string urlBase, string servicePrefix, string controller, RecoverPasswordRequest recoverPasswordRequest);
+
+
         Task<Response> AddVoteAsync(string urlBase, string servicePrefix, string controller, VoteRequest voteRequest, string tokenType, string accessToken);
 
     }
