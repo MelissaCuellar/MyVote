@@ -17,8 +17,8 @@
 
    	 <ffimageloading.cross.MvxCachedImageView
    		 android:id="@+id/votingEventImageView"
-   		 android:layout_width="100dp"
-   		 android:layout_height="100dp"
+   		 android:layout_width="120dp"
+   		 android:layout_height="120dp"
    		 local:MvxBind="ImagePath ImageFullPath" />
 
    	 <TextView
@@ -40,6 +40,23 @@
    		 local:layout_constraintTop_toBottomOf="@+id/nameTextView"
    		 local:layout_constraintLeft_toRightOf="@+id/votingEventImageView"
    		 local:MvxBind="Text Description" />
+
+        <TextView
+            android:id="@+id/startDateTextView"
+        	android:layout_width="fill_parent"
+        	android:layout_height="wrap_content"
+        	android:textSize="15dp"
+            local:layout_constraintTop_toBottomOf="@+id/votingEventImageView"
+   		    local:layout_constraintLeft_toRightOf="@+id/votingEventImageView"
+        	local:MvxBind="Text StartDate" />
+    	<TextView
+            android:id="@+id/endDateTextView"
+        	android:layout_width="fill_parent"
+        	android:layout_height="wrap_content"
+        	android:textSize="15dp"
+            local:layout_constraintTop_toBottomOf="@+id/startDateTextView"
+   		    local:layout_constraintLeft_toRightOf="@+id/votingEventImageView"
+        	local:MvxBind="Text EndDate" />
 
     </android.support.constraint.ConstraintLayout>
 

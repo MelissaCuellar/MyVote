@@ -16,10 +16,10 @@ namespace MyVote.Common.Models
         public string Description { get; set; }
 
         [JsonProperty("startDate")]
-        public DateTimeOffset StartDate { get; set; }
+        public DateTime StartDate { get; set; }
 
         [JsonProperty("endDate")]
-        public DateTimeOffset EndDate { get; set; }
+        public DateTime EndDate { get; set; }
 
         [JsonProperty("candidates")]
         public Candidate[] Candidates { get; set; }

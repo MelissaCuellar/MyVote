@@ -8832,11 +8832,11 @@ namespace MyVote.UICross.Android
 			// aapt resource value: 0x7f0a0029
 			public const int disableHome = 2131361833;
 			
-			// aapt resource value: 0x7f0a00ed
-			public const int drawerLayout = 2131362029;
-			
 			// aapt resource value: 0x7f0a00ef
-			public const int drawerListView = 2131362031;
+			public const int drawerLayout = 2131362031;
+			
+			// aapt resource value: 0x7f0a00f1
+			public const int drawerListView = 2131362033;
 			
 			// aapt resource value: 0x7f0a00ce
 			public const int editTextEmail = 2131361998;
@@ -8852,6 +8852,9 @@ namespace MyVote.UICross.Android
 			
 			// aapt resource value: 0x7f0a0039
 			public const int end = 2131361849;
+			
+			// aapt resource value: 0x7f0a00ee
+			public const int endDateTextView = 2131362030;
 			
 			// aapt resource value: 0x7f0a0048
 			public const int enterAlways = 2131361864;
@@ -8892,8 +8895,8 @@ namespace MyVote.UICross.Android
 			// aapt resource value: 0x7f0a0076
 			public const int forever = 2131361910;
 			
-			// aapt resource value: 0x7f0a00ee
-			public const int frameLayout = 2131362030;
+			// aapt resource value: 0x7f0a00f0
+			public const int frameLayout = 2131362032;
 			
 			// aapt resource value: 0x7f0a000a
 			public const int ghost_view = 2131361802;
@@ -8964,8 +8967,8 @@ namespace MyVote.UICross.Android
 			// aapt resource value: 0x7f0a00d3
 			public const int loginButton = 2131362003;
 			
-			// aapt resource value: 0x7f0a00f1
-			public const int masked = 2131362033;
+			// aapt resource value: 0x7f0a00f3
+			public const int masked = 2131362035;
 			
 			// aapt resource value: 0x7f0a00ab
 			public const int message = 2131361963;
@@ -9195,6 +9198,9 @@ namespace MyVote.UICross.Android
 			// aapt resource value: 0x7f0a0058
 			public const int start = 2131361880;
 			
+			// aapt resource value: 0x7f0a00ed
+			public const int startDateTextView = 2131362029;
+			
 			// aapt resource value: 0x7f0a005d
 			public const int stretch = 2131361885;
 			
@@ -9306,8 +9312,8 @@ namespace MyVote.UICross.Android
 			// aapt resource value: 0x7f0a001b
 			public const int view_offset_helper = 2131361819;
 			
-			// aapt resource value: 0x7f0a00f0
-			public const int visible = 2131362032;
+			// aapt resource value: 0x7f0a00f2
+			public const int visible = 2131362034;
 			
 			// aapt resource value: 0x7f0a00eb
 			public const int votingEventImageView = 2131362027;
